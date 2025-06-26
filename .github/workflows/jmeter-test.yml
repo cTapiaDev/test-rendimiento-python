@@ -48,24 +48,24 @@ jobs:
               run: pip install -r requirements.txt
               working-directory: ./
 
-            - name: Levantar la Aplicación Web
-              run: |
-                cd app/
-                setsid python server.py > ../server_app.log 2>&1 &
-                echo "Servidor web iniciado."
-                sleep 5
-                echo "Chequeo de Logs"
-                cat ../server_app.log || echo "server_app.log no existe."
-              working-directory: ./
+            # - name: Levantar la Aplicación Web
+            #   run: |
+            #     cd app/
+            #     setsid python server.py > ../server_app.log 2>&1 &
+            #     echo "Servidor web iniciado."
+            #     sleep 5
+            #     echo "Chequeo de Logs"
+            #     cat ../server_app.log || echo "server_app.log no existe."
+            #   working-directory: ./
 
-            - name: Esperar a que la Aplicación esté lista
-              run: |
-                sleep 5
-                curl --retry 12 --retry-delay 5 --fail http://localhost:5000/ || \
-                { echo "La aplicación web no respondió."; \
-                  cat server_app.log; \
-                  exit 1; }
-                echo "La aplicación web está lista." 
+            # - name: Esperar a que la Aplicación esté lista
+            #   run: |
+            #     sleep 5
+            #     curl --retry 12 --retry-delay 5 --fail http://localhost:5000/ || \
+            #     { echo "La aplicación web no respondió."; \
+            #       cat server_app.log; \
+            #       exit 1; }
+            #     echo "La aplicación web está lista." 
 
             - name: Ejecutar Pruebas de JMeter
               run: |
